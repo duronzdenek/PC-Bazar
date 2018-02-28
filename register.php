@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype>
 <html lang="en">                             
   <head>                                                 
@@ -9,7 +12,12 @@
     <!-- Bootstrap CSS -->                                                          
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">                             
-  </head>                             
+  </head>
+<?php
+if(isset($_SESSION['logged_id'])){
+  header('Location: home.php');
+}
+?>                             
   <body>       
        <!-- Horní Bar-->           
     <nav class="navbar navbar-expand-md  navbar-dark bg-dark" style="background:#aaa">                                                                     
@@ -26,29 +34,33 @@
        </ul>
        <ul class="navbar-nav ml-auto justify-content-end"> 
         <li class="nav-item">
-      <!--Přihlášení menu -->
+ <!--Přihlášení menu -->
+       <a href="login.php" class="btn btn-secondary" role="button">&nbspPřihlásit se</a>
+       <!--
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button href="login.php" class="btn btn-secondary" type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Přihlásit se
           </button>
          
        <div class="dropdown-menu">
         <form class="px-4 py-3">
          <div class="form-group">
-            <label for="nickname">Přezdívka</label>
-            <input type="text" class="form-control" id="nickname">
+            <label for="nickname_dropdown">Přezdívka</label>
+            <input type="text" class="form-control" id="nickname_dropdown" name="nickname_dropdown">
          </div>
            <div class="form-group">
-            <label for="password">Heslo</label>
-            <input type="password" class="form-control" id="password">
+            <label for="password_dropdown">Heslo</label>
+            <input type="password" class="form-control" id="password_dropdown" name="password_dropdown">
           </div>
-          <button type="submit" class="btn btn-faded" id="Login_submit">Přihlásit se</button>
+          <button type="submit" class="btn btn-faded" id="submit_dropdown_login" name="submit_dropdown_login">Přihlásit se</button>
        </form>
-        <div class="dropdown-divider"></div>
-       <a class="dropdown-item" href="register.php">Nemáš účet? Vytvoř si ho zde!</a>
+     
+      <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="register.php">Nemáš účet? Vytvoř si ho zde!</a>
         <a class="dropdown-item" href="#">Zapomenuté heslo?</a>
       </div>
     </div>
+    -->
       <!--End_Přihlášení menu -->
                                                                                      
         </li>

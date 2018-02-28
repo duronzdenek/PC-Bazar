@@ -17,7 +17,7 @@ session_start();
 if(isset($_SESSION['logged_id'])){
   header('Location: home.php');
 }
-?>                               
+?>                             
   <body>       
     <!-- Horní Bar-->           
     <nav class="navbar navbar-expand-md  navbar-dark bg-dark" style="background:#aaa">                                                                     
@@ -98,7 +98,7 @@ if(isset($_SESSION['logged_id'])){
       
       <div class ="row"> 
           <div class="col-md-6">
-            <h4 class="text-start">Registrace byla úspěšně provedena.</h4>
+            <h4 class="text-start">Odhlášení bylo úspěšné.</h4>
           </div> 
       </div>
       
@@ -146,59 +146,7 @@ if(isset($_SESSION['logged_id'])){
       </div>
      
      
-          <?php
-
-      if(isset($_POST['submit_dropdown_login'])){
-        extract($_POST);
-        $_SESSION['nickname']=$nickname_dropdown;
-        $_SESSION['password']=$password_dropdown; 
-        ?>
-        <script>
-          window.location.reload();
-        </script>
-        <?php  
-      }
-      
-      if(isset($_SESSION['nickname']) OR isset($_SESSION['password'])){
-        require_once("MySQL.php");
-        
-        $nickname_dropdown=$_SESSION['nickname'];
-        $password_dropdown=$_SESSION['password'];
-        
-        $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname_dropdown."'");
-        
-             
-        if(mysqli_num_rows($nickname_check)){
-          $sql="SELECT password FROM  pcb_uzivatel WHERE nickname ='".$nickname_dropdown."'";
-          $kvery = $conn->query($sql);
-          $row=mysqli_fetch_array($kvery);
-          
-          if($row['password']==$password_dropdown){
-          
-          echo"Potvrzeno, jméno: ".$nickname_dropdown. " heslo: ".$password_dropdown;
-          
-          }
-          else{
-            echo "<br>
-                  <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Špatně zadané <strong>heslo</strong>.</div>
-                  </div>
-                  </div>";          
-          }
-          
-        }
-        else{
-            echo "<br>
-                  <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Špatně zadaná <strong>přezdívka</strong>.</div>
-                  </div>
-                  </div>";
-        }
-      
-      }
-      
+     <?php
       if(isset($_POST['submit_login'])){
         require_once("MySQL.php");
         extract($_POST);
@@ -209,18 +157,11 @@ if(isset($_SESSION['logged_id'])){
           $sql="SELECT password FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
           $kvery = $conn->query($sql);
           $row=mysqli_fetch_array($kvery);
-
           
           if($row['password']==$password){
-          $sql_id="SELECT id FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
-          $kvery_id=$conn->query($sql_id);
-          $id=mysqli_fetch_array($kvery_id);
-          $_SESSION['logged_id']=$id['id'];
-          ?>
-             <script>
-               window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/home.php');
-             </script>
-          <?php
+          
+          echo"Potvrzeno, jméno: ".$nickname. " heslo: ".$password;
+          
           }
           else{
             echo "<br>

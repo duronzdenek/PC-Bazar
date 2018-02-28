@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 ?>
 <!doctype >
@@ -13,11 +13,11 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">                             
   </head>
-<?php
+ <?php
 if(isset($_SESSION['logged_id'])){
   header('Location: home.php');
 }
-?>                               
+?>                             
   <body>       
     <!-- Horní Bar-->           
     <nav class="navbar navbar-expand-md  navbar-dark bg-dark" style="background:#aaa">                                                                     
@@ -62,8 +62,7 @@ if(isset($_SESSION['logged_id'])){
     </div>
     -->
       <!--End_Přihlášení menu -->
-                                                                                     
-        </li>
+    </li>
         <li class="nav-item">                                                              
           <a class="nav-link" href="register.php">Nemáš účet? Vytvoř si ho zde!</a>                                                    
         </li>                  
@@ -92,19 +91,9 @@ if(isset($_SESSION['logged_id'])){
     <!-- End_Horní Bar -->  
     
     
-    <!-- Register_Completed /w login -->  
+    <!-- Login  -->  
      <div class="container">       
-     <form action="register_completed.php" method="POST">
-      
-      <div class ="row"> 
-          <div class="col-md-6">
-            <h4 class="text-start">Registrace byla úspěšně provedena.</h4>
-          </div> 
-      </div>
-      
-      <br>
-      <br>
-      
+     <form action="login.php" method="POST">
       <div class="row">       
         <div class="col-md">   
           <h3 class="text-center"><i class="fa fa-file-text" aria-hidden="true"></i>&nbspPřihlášení</h3> 
@@ -119,7 +108,7 @@ if(isset($_SESSION['logged_id'])){
        </div>
  
       <div class="row">      
-        <div class="col-md-6">       
+        <div class="col-md-4">       
           <div class="input-group">         
             <span class="input-group-addon" id="nickname">Přezdívka</span>          
             <input type="text" class="form-control" maxlength="20" aria-describedby="nickname" id="nickname" name="nickname"  value=<?=(isset($_POST['nickname'])?$_POST['nickname']:"")?>>        
@@ -129,7 +118,7 @@ if(isset($_SESSION['logged_id'])){
       <br>
       
       <div class="row">            
-        <div class="col-md-6">           
+        <div class="col-md-4">           
           <div class="input-group">          
             <span class="input-group-addon" id="password">Heslo&nbsp</span>          
             <input type="password" class="form-control" maxlength="20" id="password" name="password">        
@@ -146,7 +135,7 @@ if(isset($_SESSION['logged_id'])){
       </div>
      
      
-          <?php
+     <?php
 
       if(isset($_POST['submit_dropdown_login'])){
         extract($_POST);

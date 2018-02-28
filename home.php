@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!doctype >
 <html lang="en">                             
   <head>                                                 
@@ -27,16 +30,30 @@
        <?php
        
        if(isset($_SESSION['logged_id'])){
+          require_once("MySQL.php");
+          $sql_f="SELECT first_name FROM  pcb_uzivatel WHERE id ='".$_SESSION['logged_id']."'";
+          $kvery = $conn->query($sql_f);
+          $row_f=mysqli_fetch_array($kvery);
+          $sql_l="SELECT last_name FROM  pcb_uzivatel WHERE id ='".$_SESSION['logged_id']."'";
+          $kvery_l = $conn->query($sql_l);
+          $row_l=mysqli_fetch_array($kvery_l);
        echo "
         <ul class='navbar-nav ml-auto justify-content-end'> 
-          <li class='nav-item dropdown'>
-            <a class='nav-link dropdown-toggle'>
-            Možnosti účtu
-            </a>
-             <div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>
-              <a class='dropdown-item' href='#'>Nastavení</a>
-              <a class='dropdown-item' href='#'>Odhlásit se</a>
-            </div>
+          <li class='nav-item'>
+            
+            <a href='#link' class='nav-link font-weight-bold'> Přihlášen, ".$row_f['first_name']." ".$row_l['last_name']."</i></a>
+
+          </li>
+          <li class='nav-item'>
+            
+            <a href='#link' class='nav-link'></i>&nbspNastavení</a>
+
+          </li>
+          
+          <li class='nav-item'>
+            
+            <a href='signout.php' class='nav-link'></i>&nbspOdhlásit se</a>
+
           </li>
         </ul>                                                                                         
     </nav>
@@ -50,29 +67,33 @@
        echo "
       <ul class='navbar-nav ml-auto justify-content-end'> 
         <li class='nav-item'>
-      <!--Přihlášení menu -->
+       <!--Přihlášení menu -->
+       <a href='login.php' class='btn btn-secondary' role='button'>&nbspPřihlásit se</a>
+       <!--
         <div class='dropdown'>
-          <button class='btn btn-secondary dropdown-toggle' type='button' id='login' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <button href='login.php' class='btn btn-secondary' type='button' id='login' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
           Přihlásit se
           </button>
          
        <div class='dropdown-menu'>
         <form class='px-4 py-3'>
          <div class='form-group'>
-            <label for='nickname'>Přezdívka</label>
-            <input type='text' class='form-control' id='nickname'>
+            <label for='nickname_dropdown'>Přezdívka</label>
+            <input type='text' class='form-control' id='nickname_dropdown' name='nickname_dropdown'>
          </div>
            <div class='form-group'>
-            <label for='password'>Heslo</label>
-            <input type='password' class='form-control' id='password'>
+            <label for='password_dropdown'>Heslo</label>
+            <input type='password' class='form-control' id='password_dropdown' name='password_dropdown'>
           </div>
-          <button type='submit' class='btn btn-faded' id='Login_submit'>Přihlásit se</button>
+          <button type='submit' class='btn btn-faded' id='submit_dropdown_login' name='submit_dropdown_login'>Přihlásit se</button>
        </form>
-        <div class='dropdown-divider'></div>
-       <a class='dropdown-item' href='register.php'>Nemáš účet? Vytvoř si ho zde!</a>
+     
+      <div class='dropdown-divider'></div>
+        <a class='dropdown-item' href='register.php'>Nemáš účet? Vytvoř si ho zde!</a>
         <a class='dropdown-item' href='#'>Zapomenuté heslo?</a>
       </div>
     </div>
+    -->
       <!--End_Přihlášení menu -->
                                                                                      
         </li>

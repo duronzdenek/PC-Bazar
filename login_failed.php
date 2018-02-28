@@ -12,7 +12,12 @@ session_start();
     <!-- Bootstrap CSS -->                                                          
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">                             
-  </head>                             
+  </head>
+<?php
+if(isset($_SESSION['logged_id'])){
+  header('Location: home.php');
+}
+?>                               
   <body>       
     <!-- Horní Bar-->           
     <nav class="navbar navbar-expand-md  navbar-dark bg-dark" style="background:#aaa">                                                                     
@@ -29,9 +34,11 @@ session_start();
        </ul>
        <ul class="navbar-nav ml-auto justify-content-end"> 
         <li class="nav-item">
-      <!--Přihlášení menu -->
+       <!--Přihlášení menu -->
+       <a href="login.php" class="btn btn-secondary" role="button">&nbspPřihlásit se</a>
+       <!--
         <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button href="login.php" class="btn btn-secondary" type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Přihlásit se
           </button>
          
@@ -53,6 +60,7 @@ session_start();
         <a class="dropdown-item" href="#">Zapomenuté heslo?</a>
       </div>
     </div>
+    -->
       <!--End_Přihlášení menu -->
                                                                                      
         </li>
@@ -193,10 +201,13 @@ session_start();
           $sql="SELECT password FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
           $kvery = $conn->query($sql);
           $row=mysqli_fetch_array($kvery);
+
           
           if($row['password']==$password){
-          
-          $_SESSION['logged_id']=$row['id'];
+          $sql_id="SELECT id FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
+          $kvery_id=$conn->query($sql_id);
+          $id=mysqli_fetch_array($kvery_id);
+          $_SESSION['logged_id']=$id['id'];
           
           echo"Potvrzeno, jméno: ".$nickname. " heslo: ".$password;
           
