@@ -6,7 +6,48 @@ require_once "MySQL_chyby.class.php";
     $conn = new mysqli($host, $user, $pass, $db) or die("ERROR - Not conected to database");
     /* 2. nastavení, v jakém kódování se mají data z databáze prezentovat */
     $conn->set_charset("UTF8");
-  
+    
+    function login($conn){
+        extract($_POST);
+        
+        $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
+      
+        if(mysqli_num_rows($nickname_check)){
+          $sql="SELECT password FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
+          $kvery = $conn->query($sql);
+          $row=$kvery->fetch_array();
+          
+          if($row['password']==$password){
+          $sql_id="SELECT id FROM  pcb_uzivatel WHERE nickname ='".$nickname."'";
+          $kvery_id=$conn->query($sql_id);
+          $id=$kvery_id->fetch_array();
+          $_SESSION['logged_id']=$id['id'];
+          
+          ?>
+             <script>
+               window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/home.php');
+             </script>
+          <?php
+          }
+          else{
+            echo "<br>
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Špatně zadané <strong>heslo</strong>.</div>
+                  </div>
+                  </div>";          
+          }
+          
+        }
+        else{
+            echo "<br>
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Špatně zadaná <strong>přezdívka</strong>.</div>
+                  </div>
+                  </div>";
+        }
+    }
     function vypis($tabulka, $sloupce = array() ) {
     /* 3. Zadání příkazu SQL */
     $retezec = implode(", ", $sloupce);

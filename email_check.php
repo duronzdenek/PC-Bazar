@@ -20,74 +20,11 @@ if(isset($_SESSION['logged_id'])){
 }
 ?>                               
   <body>       
-    <!-- Horní Bar-->           
-    <nav class="navbar navbar-expand-md  navbar-dark bg-dark" style="background:#aaa">                                                                     
-      <ul class="navbar-nav">
-        <li>                                                                                        
-        <a class="nav-link font-weight-bold" href="home.php"><i class="fa fa-laptop" aria-hidden="true"></i>&nbspPočítačový Bazar</a>                                                                                     
-        </li>
-        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-        <li class="nav-item">                                                              
-          <a href="#link" class="btn btn-secondary" role="button"><i class="fa fa-plus" aria-hidden="true"></i>&nbspVložit inzerát</a>                                                 
-        </li> 
-        &nbsp 
-        <br>
-       </ul>
-       <ul class="navbar-nav ml-auto justify-content-end"> 
-        <li class="nav-item">
-      <!--Přihlášení menu -->
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Přihlásit se
-          </button>
-         
-       <div class="dropdown-menu">
-        <form class="px-4 py-3">
-         <div class="form-group">
-            <label for="nickname">Přezdívka</label>
-            <input type="text" class="form-control" id="nickname">
-         </div>
-           <div class="form-group">
-            <label for="password">Heslo</label>
-            <input type="password" class="form-control" id="password">
-          </div>
-          <button type="submit" class="btn btn-faded" id="Login_submit">Přihlásit se</button>
-       </form>
-        <div class="dropdown-divider"></div>
-       <a class="dropdown-item" href="register.php">Nemáš účet? Vytvoř si ho zde!</a>
-        <a class="dropdown-item" href="#">Zapomenuté heslo?</a>
-      </div>
-    </div>
-      <!--End_Přihlášení menu -->
-                                                                                     
-        </li>
-        <li class="nav-item">                                                              
-          <a class="nav-link" href="register.php">Nemáš účet? Vytvoř si ho zde!</a>                                                    
-        </li>                  
-       </ul>                                                                                         
-    </nav>
-                                                     
-    <div class="jumbotron jumbotron-fluid" style="background:#aaa">                  
-      <div class="container">                                     
-        <div class="row" style="background:#aaa">                            
-          <div class="col-md-6">      <h1><i class="fa fa-laptop" aria-hidden="true"></i>&nbspPočítačový bazar</h1>      <h5>&nbsp &nbsp Prodej a nákup všeho ohledně počítačů...</h5>                            
-          </div>                            
-          <div class="col-md-4">                                
-            <br>                                 
-            <br>                         
-            <input class="form-control mr-sm-2" type="text" placeholder="počítač, notebook, procesor...">                           
-          </div>                     
-          <div class="col-md-2">                       
-            <br>                                 
-            <br>                         
-            <button type="button" class="btn btn-dark" type=submit><i class="fa fa-search" aria-hidden="true"></i>&nbspHledej                          
-            </button>                            
-          </div>                        
-        </div>             
-      </div>         
-    </div>
+  <?php
+   include("horni_bar_checked.php");  
+  ?>
     
-    <!-- Email_checker!-->
+    <!-- Email_checker-->
     <div class="container">                                     
         <div class="row"">                            
           <div class="col-md-6">      <h4><i class="fa fa-envelope" aria-hidden="true"></i>&nbspKontrola mailové adresy</h4>                            

@@ -13,21 +13,28 @@ session_start();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">                             
   </head>
- <?php
-if(isset($_SESSION['logged_id'])){
-  header('Location: home.php');
-}
-?>                             
+                             
   <body>       
+  <?php
+   include("horni_bar_checked.php");
+  ?>
     
-    <?php
-     include("horni_bar_checked.php")
-    ?>  
+    <!-- Login /w first_login_then -->  
     
     
-    <!-- Login  -->  
      <div class="container">       
-     <form action="login.php" method="POST">
+     <form action="register_completed.php" method="POST">
+     
+           
+      <div class ="row"> 
+          <div class="col-md-12">
+            <h4 class="text-start">Pro přidání inzerátu se musíte přihlásit.</h4>
+          </div> 
+      </div>
+      
+      <br>
+      <br>
+      
       <div class="row">       
         <div class="col-md">   
           <h3 class="text-center"><i class="fa fa-file-text" aria-hidden="true"></i>&nbspPřihlášení</h3> 
@@ -70,7 +77,7 @@ if(isset($_SESSION['logged_id'])){
      
      
      <?php
-      
+
       if(isset($_POST['submit_dropdown_login'])){
         extract($_POST);
         $_SESSION['nickname']=$nickname_dropdown;
@@ -82,7 +89,10 @@ if(isset($_SESSION['logged_id'])){
         <?php  
       }
       
+      
+      
       if(isset($_SESSION['nickname']) OR isset($_SESSION['password'])){
+        require_once("MySQL.php");
         
         $nickname_dropdown=$_SESSION['nickname'];
         $password_dropdown=$_SESSION['password'];
@@ -122,9 +132,8 @@ if(isset($_SESSION['logged_id'])){
       }
       
       if(isset($_POST['submit_login'])){
-        require("MySQL.php");  
-        login($conn);
-        
+        require_once("MySQL.php");
+        login();
       }
       
       
