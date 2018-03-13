@@ -244,7 +244,7 @@ include("horni_bar_checked.php");
 
       <div class="row">
       <div class="col-md-6">
-      <input class="btn btn-secondary" type="submit" id="submit_register" name="submit_register" value="Registrovat se"> 
+      <input class="btn btn-dark" type="submit" id="submit_register" name="submit_register" value="Registrovat se"> 
       </div>
       </div>
      </form>   

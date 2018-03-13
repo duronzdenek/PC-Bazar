@@ -24,7 +24,7 @@
         <ul class='navbar-nav ml-auto justify-content-end'> 
           <li class='nav-item'>
             
-            <a href='#link' class='nav-link font-weight-bold'> Přihlášen jako ".$row_f['first_name']." ".$row_l['last_name']."</i></a>
+            <a href='profile.php' class='nav-link font-weight-bold'>".$row_f['first_name']." ".$row_l['last_name']."</a>
 
           </li>
           <li class='nav-item'>

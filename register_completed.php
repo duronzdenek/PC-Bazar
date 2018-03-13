@@ -70,7 +70,7 @@ session_start();
       
       <div class="row">
        <div class="col-md-6">
-        <input class="btn btn-secondary" type="submit" id="submit_login" name="submit_login" value="Přihlásit se"> 
+        <input class="btn btn-dark" type="submit" id="submit_login" name="submit_login" value="Přihlásit se"> 
        </div>
       </div>
      

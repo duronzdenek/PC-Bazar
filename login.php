@@ -64,7 +64,7 @@ if(isset($_SESSION['logged_id'])){
       
       <div class="row">
        <div class="col-md-6">
-        <input class="btn btn-secondary" type="submit" id="submit_login" name="submit_login" value="Přihlásit se"> 
+        <input class="btn btn-dark" type="submit" id="submit_login" name="submit_login" value="Přihlásit se"> 
        </div>
       </div>
      
@@ -123,7 +123,9 @@ if(isset($_SESSION['logged_id'])){
       
       if(isset($_POST['submit_login'])){
         require("MySQL.php");  
-        login($conn);
+        if(login($conn);
+
+        
         
       }
       

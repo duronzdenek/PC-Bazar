@@ -6,6 +6,7 @@ require_once "MySQL_chyby.class.php";
     $conn = new mysqli($host, $user, $pass, $db) or die("ERROR - Not conected to database");
     /* 2. nastavení, v jakém kódování se mají data z databáze prezentovat */
     $conn->set_charset("UTF8");
+
     
     function login($conn){
         extract($_POST);
@@ -30,120 +31,51 @@ require_once "MySQL_chyby.class.php";
           <?php
           }
           else{
-            echo "<br>
-                  <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Špatně zadané <strong>heslo</strong>.</div>
-                  </div>
-                  </div>";          
+             echo   "<br>
+                     <div class='row'>
+                     <div class='col-md-6'>
+                     <div class='alert alert-danger'>Špatně zadané <strong>heslo</strong>.</div>
+                     </div>
+                     </div>";
           }
           
         }
         else{
-            echo "<br>
-                  <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Špatně zadaná <strong>přezdívka</strong>.</div>
-                  </div>
-                  </div>";
+            echo  "<br>
+                    <div class='row'>
+                    <div class='col-md-6'>
+                    <div class='alert alert-danger'>Špatně zadaná <strong>přezdívka</strong>.</div>
+                    </div>
+                    </div>"  ;
         }
-    }
-    function vypis($tabulka, $sloupce = array() ) {
-    /* 3. Zadání příkazu SQL */
-    $retezec = implode(", ", $sloupce);
-    $dotaz = "SELECT ".$retezec." FROM ".$tabulka;
-    try {
-      $vysledek = $conn->query($dotaz);
-    }
-    catch(Chyba_dotazu $e) {
-      echo $e->getMessage();
-      exit;
-    }
-    catch(Exception $e) {
-      echo $e->getMessage();
-    }
-    
-    $hlavicka = "<table border='1'><tr>";
-    foreach ($sloupce as $s) {
-      $hlavicka .= "<th>".$s."</th>";     
-    }
-    $hlavicka .= "</tr>";
-    echo $hlavicka;
         
-    /* 4. Zpracování výsledku dotazu, fce fetch_object() vrací objekt, ne pole */      
-    while ($radek=$vysledek->fetch_object()):
-      echo "<tr>";
-      foreach ($sloupce as $s) {
-        echo "<td>".htmlspecialchars($radek->$s)."</td>";     
-      }
-      echo "</tr>";
-    endwhile;
-    echo "</table>";
+    }
     
-    /* 5. Uvolnění sady výsledků */
-    $vysledek->free_result();    
-  }
-    
-    function vrat_data($tabulka, $sloupce = array()) {
-    /* Zadání příkazu SQL */
-    $retezec = implode(", ", $sloupce);
-    $dotaz = "SELECT ".$retezec." FROM ".$tabulka;    
-    try {
-      $vysledek = $conn->query($dotaz);
-    }
-    catch(Chyba_dotazu $e) {
-      echo $e->getMessage();
-      exit;
-    }
-    catch(Exception $e) {
-      echo $e->getMessage();
-    }                   
-    /* Zpracování výsledku dotazu, fce fetch_object() vrací objekt */ 
-    $i=0; 
-    $data = array(array());    
-    while ($radek=$vysledek->fetch_object()):      
-      foreach ($sloupce as $s) {        
-        $data[$i][$s] = $radek->$s;
+    function output($conn,$table, $output){
+    if($table=="pcb_uzivatel"){ 
+        $id=$_SESSION['logged_id']; 
+        $sql="SELECT ".$output." FROM pcb_uzivatel WHERE id ='".$id."'";
+        $kvery = $conn->query($sql);
+        $row = $kvery->fetch_array();
+        echo $row[$output]." ";
       }
-      $i++;
-    endwhile; 
-    /* 5. Uvolnění sady výsledků */
-    $vysledek->free_result();
-    return $data;
-  }
-  
-    function zapis($tabulka, $sloupce = array(), $hodnoty = array()) {
-    /* 1. Zadání příkazu SQL */
-    $retezec = implode(", ", $sloupce);
-    $dotaz = "INSERT INTO ".$tabulka."(".$retezec.") VALUES(";
-    foreach ($hodnoty as $hodnota) {
-      $dotaz .= "'".addslashes($hodnota)."', ";
     }
-    $dotaz = substr($dotaz,0,strlen($dotaz)-2).")";    
-    try {
-      $vysledek = $conn->query($dotaz);
-      if (!$vysledek) throw new Chyba_dotazu;
+    
+    function seen($conn){
+        require_once("MySQL.php");
+        $result=$conn->query("SELECT id FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."'");
+        if(mysqli_num_rows($result)!=NULL){
+            $x= mysqli_num_rows($result);
+              $seen=$conn->query("SELECT sum(seen) FROM pcb_inzerat WHERE id_pcb_uzivatel='".$_SESSION['logged_id']."'");
+              $row=$seen->fetch_array();
+              echo $row['sum(seen)'];
+        }
+        else{
+            echo "0";
     }
-    catch(Chyba_dotazu $e) {
-      echo $e->getMessage();
-      echo $dotaz;
-      exit;
     }
-  }
-  
-  function smaz_radek($tabulka, $podminka) {
-    /* 1. Zadání příkazu SQL */
-    $dotaz = "DELETE FROM ".$tabulka." WHERE ".$podminka;         
-    try {
-      $vysledek = $conn->query($dotaz);
-      if (!$vysledek) throw new Chyba_dotazu;
-    }
-    catch(Chyba_dotazu $e) {
-      echo $e->getMessage();
-      echo $dotaz;
-      exit;
-    }
-  }
+    
+   
   
   function __destruct() { 
     /* 6. Ukončení spojení */

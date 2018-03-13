@@ -26,7 +26,7 @@ if(!isset($_SESSION['logged_id'])){
 ?>                   
     <!-- New_inzerát -->       
     <div class="container">       
-      <form action="new_inzerat.php" method="POST">
+      <form action="" method="POST">
        <div class="row">       
         <div class="col-md">   
           <h3 class="text-center">&nbspVložit inzerát</h3> 
@@ -105,7 +105,10 @@ if(!isset($_SESSION['logged_id'])){
         <?php 
   
   if(isset($_POST['submit_inzerat'])){
-    if(getimagesize($_FILES['img1']['tmp_name1'])==FALSE || getimagesize($_FILES['img2']['tmp_name2'])==FALSE || getimagesize($_FILES['img3']['tmp_name3'])==FALSE)
+   $img1=$_FILES['img1']['tmp_name'];
+   $img2=$_FILES['img2']['tmp_name'];
+   $img3=$_FILES['img3']['tmp_name'];
+    if(getimagesize($img1)==FALSE || getimagesize($img2)==FALSE || getimagesize($img3)==FALSE)
     {
       echo "
       <div class='row'>
@@ -126,7 +129,7 @@ if(!isset($_SESSION['logged_id'])){
 
       <div class="row">
       <div class="col-md-6">
-      <input class="btn btn-secondary" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
+      <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
       </div>
       </div>
      </form>   
@@ -140,8 +143,12 @@ if(!isset($_SESSION['logged_id'])){
 
 <?php 
   
-  if(isset($_POST['submit_inzerat'])){
-    if(getimagesize($_FILES['img1']['tmp_name1'])!=FALSE){
+  if(isset($_POST['x'])){
+    
+  }
+  
+  if(isset($_POST['x'])){
+    if(getimagesize($_FILES['img1']['tmp_name'])!=FALSE){
         $info = pathinfo($_FILES['img1']['name']);
         $ext = $info['extension'];
         require_once "MySQL.php";
@@ -158,7 +165,7 @@ if(!isset($_SESSION['logged_id'])){
           die("Couldn't enter data: ".$mysqli->error);
           }  
       
-    }
+    } 
   }
 ?>
 
