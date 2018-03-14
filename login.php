@@ -37,7 +37,7 @@ if(isset($_SESSION['logged_id'])){
   
        <div class="row">      
          <div class="col-md-10">
-           <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspZadejte údaje, použíté při registraci.</p>
+           <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspZadejte údaje, použíté při registraci.</p>
          </div>      
        </div>
  
@@ -96,8 +96,7 @@ if(isset($_SESSION['logged_id'])){
           $row=mysqli_fetch_array($kvery);
           
           if($row['password']==$password_dropdown){
-          
-          echo"Potvrzeno, jméno: ".$nickname_dropdown. " heslo: ".$password_dropdown;
+ 
           
           }
           else{
@@ -123,10 +122,7 @@ if(isset($_SESSION['logged_id'])){
       
       if(isset($_POST['submit_login'])){
         require("MySQL.php");  
-        if(login($conn);
-
-        
-        
+        if(login($conn));  
       }
       
       

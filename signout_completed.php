@@ -41,7 +41,7 @@ session_start();
   
        <div class="row">      
          <div class="col-md-10">
-           <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspZadejte údaje, použíté při registraci.</p>
+           <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspZadejte údaje, použíté při registraci.</p>
          </div>      
        </div>
  

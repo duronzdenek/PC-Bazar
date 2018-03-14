@@ -29,7 +29,7 @@
           </li>
           <li class='nav-item'>
             
-            <a href='#link' class='nav-link'></i>&nbspNastavení</a>
+            <a href='options.php' class='nav-link'></i>&nbspNastavení</a>
 
           </li>
           

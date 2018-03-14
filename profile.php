@@ -17,10 +17,9 @@ session_start();
 <?php
   include("horni_bar_logged.php")
 ?>
-                 
-    <!-- Registrace -->       
+                        
     <div class="container">       
-      <form action="register.php" method="POST">
+      <form action="options.php" method="POST">
        <div class="row">       
         <div class="col-md">   
           <h3 class="text-center"><i class="fa fa-user"></i>Profil uživatele</h3> 
@@ -39,11 +38,11 @@ session_start();
      
       <div class="row"> 
       <div class="col-md-6">
-          <h6>Jméno a příjmení:</h6> <p><?require_once("MySQL.php");output($conn,"pcb_uzivatel","first_name");output($conn,"pcb_uzivatel","last_name");?></p>
+          <h6>Jméno a příjmení:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","first_name")." ";echo output($conn,"pcb_uzivatel","last_name");?></p>
       </div>
       
       <div class="col-md-6">
-           <h6>Přezdívka:</h6>  <p><?require_once("MySQL.php");output($conn,"pcb_uzivatel","nickname");?></p>
+           <h6>Přezdívka:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","nickname");?></p>
       </div>
       </div> 
        
@@ -57,11 +56,11 @@ session_start();
 
       <div class="row"> 
         <div class="col-md-6">
-          <h6>E-mail:</h6> <p><?require_once("MySQL.php");output($conn,"pcb_uzivatel","email");?></p>
+          <h6>E-mail:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","email");?></p>
         </div>
       
        <div class="col-md-6">
-           <h6>Telefonní číslo:</h6>  <p><?require_once("MySQL.php");output($conn,"pcb_uzivatel","number");?></p>
+           <h6>Telefonní číslo:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","number");?></p>
        </div>
       </div>
       
@@ -87,11 +86,10 @@ session_start();
       <br>
       <div class="row">
       <div class="col-md-6">
-      <input href="home.php "class="btn btn-dark" type="submit"  value="Změnit údaje"> 
+      <input  class="btn btn-dark" type="submit" name="change_submit"  value="Změnit údaje"> 
       </div>
       </div>
-     </form>
-     
+     </form> 
     <br>
       <div class="row">      
         <div class="col-md-12">
@@ -136,56 +134,6 @@ session_start();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>                       
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>                                       
 
-<?php 
-  
-  if(isset($_POST['submit_register'])){
-  
-   require_once "MySQL.php";
-   extract($_POST);
-   
-     $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
-     $email_check = $conn->query("SELECT email FROM pcb_uzivatel WHERE email ='".$email."'");
-     $number_check =$conn->query("SELECT number FROM pcb_uzivatel WHERE number ='".$number."'");
-   
-      if(mysqli_num_rows($nickname_check) OR mysqli_num_rows($email_check) OR mysqli_num_rows($number_check) > 0){
-      
-       }  
-      elseif($password!=$password_check){
-      }
-      elseif(empty($nickname) || empty($first_name) || empty($last_name) || empty($password) || empty($email) || empty($number) ){
-      }
-      else{
-    // input into database
-    $query = 
-    "INSERT INTO pcb_uzivatel 
-    (nickname, first_name, last_name, password, email, number)
-
-     values
-
-    ('$nickname', '$first_name','$last_name','$password','$email','$number')";
-  
-  
-    $success = $conn->query($query);
-
-    if (!$success) {
-      die("Couldn't enter data: ".$mysqli->error);
-    }
-    else{
-    ?>
-    <script>
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/register_completed.php');
-    </script>
-    
-    <?php
-    }
-    
-    
-  }
-  
-  mysqli_close($conn);
-  }
-  
-?>
 
 </body>
 </html>

@@ -15,7 +15,7 @@ session_start();
   </head>
 <body>
 <?php
-include("horni_bar_checked.php");
+include("horni_bar_logged.php");
 ?>                  
     <!-- Registrace -->       
     <div class="container">       
@@ -54,7 +54,7 @@ include("horni_bar_checked.php");
      </div>
       <div class="row">      
         <div class="col-md-10">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspUvádí se pod vámi přidanými inzeráty.</p>
+          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspUvádí se pod vámi přidanými inzeráty.</p>
         </div>      
       </div>
       <?php 
@@ -88,7 +88,7 @@ include("horni_bar_checked.php");
      
       <div class="row">      
         <div class="col-md-6">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspSlouží k přihlašování na váš účet.</p>
+          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspSlouží k přihlašování na váš účet.</p>
         </div>      
       </div>
      <?php 
@@ -137,7 +137,7 @@ include("horni_bar_checked.php");
       </div>    
       <div class="row">      
         <div class="col-md-10">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspSlouží pro přihlášení na váš účet.</p>
+          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspSlouží pro přihlášení na váš účet.</p>
         </div>      
       </div>
            <?php  
@@ -196,7 +196,7 @@ include("horni_bar_checked.php");
       
       <div class="row">      
         <div class="col-md-10">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspKontaktní informace pro zájemce vašich inzerátů. Telefonní číslo uvádějte ve formátu "703123123".</p>
+          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspKontaktní informace pro zájemce vašich inzerátů. Telefonní číslo uvádějte ve formátu "703123123".</p>
         </div>      
       </div>
       

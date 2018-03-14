@@ -18,7 +18,7 @@ session_start();
  include("horni_bar_logged.php");
 if(!isset($_SESSION['logged_id'])){
    ?> 
-    <script>
+    <script>                                                                                                         
     window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/first_login.php');
     </script>
     <?php
@@ -26,7 +26,7 @@ if(!isset($_SESSION['logged_id'])){
 ?>                   
     <!-- New_inzerát -->       
     <div class="container">       
-      <form action="" method="POST">
+      <form method="POST">
        <div class="row">       
         <div class="col-md">   
           <h3 class="text-center">&nbspVložit inzerát</h3> 
@@ -55,7 +55,7 @@ if(!isset($_SESSION['logged_id'])){
      </div>
       <div class="row">      
         <div class="col-md-6">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspZde uveďte název produktu, který si přejete přidat.</p>
+          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspZde uveďte název produktu, který si přejete přidat.</p>
         </div>      
       </div>
     <br>
@@ -69,38 +69,26 @@ if(!isset($_SESSION['logged_id'])){
       </div>
       <div class="row">      
         <div class="col-md-6">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspKrátky popis produktu, který slouží pro upřesnění informací a kvality nabízeného produktu. Popis může mít 250 písmen.</p>
+          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspKrátky popis produktu, který slouží pro upřesnění informací a kvality nabízeného produktu. Popis může mít 250 písmen.</p>
         </div>      
       </div>              
-         <div class="row">
-         <div class="input-group">
-                <div class="col-md-2">
-                <span class="input-group-addon" id="nickname">Přidání obrázků</span>
-                </div>
-        </div>
         <div class="row">
-            <div class="col-md-4">
-             <span class="input-group-btn">
-                 <span class="btn btn-default btn-file">
-                     <input type="file" name="img1" id="img1">
-                 </span>
-             </span>
-            </div>
-            <div class="col-md-4">
-             <span class="input-group-btn">
-                 <span class="btn btn-default btn-file">
-                     <input type="file" name="img2" id="img2">
-                 </span>
-             </span>
-            </div>
-            <div class="col-md-4">
-             <span class="input-group-btn">
-                 <span class="btn btn-default btn-file">
-                     <input type="file" name="img3" id="img3">
-                 </span>
-             </span>
-            </div>
-        </div>
+           <div class="col-md-4">
+             <div class=form-group>
+              <input type="file" class="form-control-file" id="img1" name="img1"> 
+             </div>
+           </div>
+           <div class="col-md-4">
+             <div class=form-group>
+              <input type="file" class="form-control-file" id="img2" name="img2"> 
+             </div>
+           </div>
+           <div class="col-md-4">
+             <div class=form-group>
+              <input type="file" class="form-control-file" id="img3" name="img3"> 
+             </div>
+           </div>
+
     </div>
         <?php 
   
@@ -121,19 +109,19 @@ if(!isset($_SESSION['logged_id'])){
           ?>
        <div class="row">      
         <div class="col-md-12">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspMůžete přidat 3 obrázky produktu, který nabízíte. Přidáním kvalitních fotek docílíte větší šance prodeje vašeho produktu. </p>
+          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspMůžete přidat 3 obrázky produktu, který nabízíte. Přidáním kvalitních fotek docílíte větší šance prodeje vašeho produktu. </p>
         </div>      
       </div>
      <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />
       <p><i class="fa fa-exclamation-circle"></i>&nbspPřidáním inzerátu souhlasíte s použitím vašich osobních údajů (jména, emailu a tel. čísla) ve výše uvedeném inzerátu. </p>
 
       <div class="row">
-      <div class="col-md-6">
-      <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
-      </div>
-      </div>
-     </form>   
-    </div>                
+        <div class="col-md-6">
+          <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
+        </div>
+      </div>   
+    </div>
+    </form>                
     <!-- End_Registrace -->                                                                                                                                                                         
     <!-- Optional JavaScript -->                                                                         
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->                       

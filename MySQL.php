@@ -51,14 +51,26 @@ require_once "MySQL_chyby.class.php";
         
     }
     
-    function output($conn,$table, $output){
+    function output($conn,$table,$output){
     if($table=="pcb_uzivatel"){ 
         $id=$_SESSION['logged_id']; 
         $sql="SELECT ".$output." FROM pcb_uzivatel WHERE id ='".$id."'";
         $kvery = $conn->query($sql);
         $row = $kvery->fetch_array();
-        echo $row[$output]." ";
+        return $row[$output];
       }
+    }
+    
+    
+    function input($conn,$table,$col,$value){
+        $id=$_SESSION['logged_id']; 
+        $sql="UPDATE ".$table." SET ".$col."='".$value."' WHERE id ='".$id."'";
+        return $conn->query($sql);
+    }
+    
+    function check($conn,$table,$col,$value){
+       $sql = $conn->query("SELECT ".$col." FROM ".$table." WHERE ".$col." ='".$value."'");
+       return $sql;
     }
     
     function seen($conn){
