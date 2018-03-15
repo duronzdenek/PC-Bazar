@@ -17,236 +17,55 @@ session_start();
 <?php
 include("horni_bar_logged.php");
 ?>                  
-    <!-- Registrace -->       
+      
     <div class="container">       
-      <form action="register.php" method="POST">
-       <div class="row">       
+      <form action="" method="POST">
+      
+      
+      
+      <div class="row">       
         <div class="col-md">   
-          <h3 class="text-center"><i class="fa fa-file-text" aria-hidden="true"></i>&nbspRegistrační formulář</h3> 
+          <h3 class="text-center"><i class="fa fa-file-text" aria-hidden="true"></i>&nbspZměna hesla</h3>
+          <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />  
          </div>                 
-       </div>           
-      
-      <br>    
-      <!-- Osobní údaje -->
-       <div class="row">      
-        <div class="col-md-12">
-        <h5><i class="fa fa-user" aria-hidden="true"></i>&nbspOsobní údaje</h5>
-        <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />   
-        </div>      
-       </div>      
-      
-      <div class="row">      
+       </div>  
+       
         
-        <div class="col-md-6">       
-          <div class="input-group">         
-            <span class="input-group-addon" id="first_name">Jméno</span>          
-            <input type="text" class="form-control" maxlength="20" aria-describedby="first_name" id="first_name" name="first_name"  value=<?=(isset($_POST['first_name'])?$_POST['first_name']:"")?>>        
-          </div>      
-        </div>
-                     
-        <div class="col-md-6">        
-          <div class="input-group">          
-            <span class="input-group-addon" id="last_name">Příjmení</span>          
-            <input type="text" class="form-control" maxlength="20" aria-describedby="last_name" id="last_name" name="last_name" value=<?=(isset($_POST['last_name'])?$_POST['last_name']:"")?>>        
-          </div>      
-        </div>
-              
-     </div>
-      <div class="row">      
-        <div class="col-md-10">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspUvádí se pod vámi přidanými inzeráty.</p>
-        </div>      
-      </div>
-      <?php 
-  
-      if(isset($_POST['submit_register'])){
-                 
-          $first_name=$_POST['first_name'];
-          $last_name=$_POST['last_name'];
-   
-          if(empty($first_name)OR empty($last_name)){
-           echo "
-                 <div class='row'>
-                 <div class='col-md-6'> 
-                 <div class='alert alert-danger'><strong>Jméno a příjmení</strong> musí být vyplněno. </div>
-                 </div>
-                 </div>";
-          }
-          
-          }
-          
-          ?>     
-
-    <div class="row">
-     <div class="col-md-6">        
-          <div class="input-group">          
-            <span class="input-group-addon" id="nickname">Přezdívka</span>          
-            <input type="text" class="form-control" maxlength="20" aria-describedby="nickname" id="nickname" name="nickname" value=<?=(isset($_POST['nickname'])?$_POST['nickname']:"")?> >        
-          </div>      
-        </div>         
-     </div>
-     
-      <div class="row">      
-        <div class="col-md-6">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspSlouží k přihlašování na váš účet.</p>
-        </div>      
-      </div>
-     <?php 
-  
-      if(isset($_POST['submit_register'])){
-          
-          require_once "MySQL.php";
-          
-          $nickname=$_POST['nickname'];
-   
-          $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
-   
-          if(empty($nickname)){
-           echo "
-                 <div class='row'>
-                 <div class='col-md-6'> 
-                 <div class='alert alert-danger'><strong>Přezdívka</strong> musí být vyplněna. </div>
-                 </div>
-                 </div>";
-          }
-          elseif(mysqli_num_rows($nickname_check) > 0) {
-          echo "
-                 <div class='row'>
-                 <div class='col-md-6'> 
-                 <div class='alert alert-danger'>Tato <strong>přezdívka</strong> již byla použita. </div>
-                 </div>
-                 </div>";
-           }
-       }
-       ?>
-      
       <div class="row">            
         <div class="col-md-6">           
           <div class="input-group">          
-            <span class="input-group-addon" id="password">Heslo&nbsp</span>          
-            <input type="password" class="form-control" maxlength="20" id="password" name="password">        
+            <span class="input-group-addon" id="new_password">Nové heslo</span>          
+            <input type="password" class="form-control" maxlength="20" id="new_password" name="new_password">        
           </div>      
         </div>
         
-        <div class="col-md-6">           
+         <div class="col-md-6">           
           <div class="input-group">
-            <span class="input-group-addon" id="password">Zadejte heslo znovu&nbsp</span>                   
-            <input type="password" class="form-control" maxlength="20" id ="password_check" name="password_check" placeholder=" ">        
+            <span class="input-group-addon" id="again_password">Nové heslo znovu</span>                   
+            <input type="password" class="form-control" maxlength="20" id ="again_password" name="again_password" placeholder=" ">        
           </div>      
-        </div>       
-      </div>    
-      <div class="row">      
-        <div class="col-md-10">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspSlouží pro přihlášení na váš účet.</p>
-        </div>      
-      </div>
-           <?php  
-      if(isset($_POST['submit_register'])){
-       
-        $password=$_POST['password'];
-        $password_check=$_POST['password_check'];
+         </div>       
+        </div>
         
-         if (empty($password)) 
-         {
-        echo "<div class='row'>
-             <div class='col-md-6'> 
-             <div class='alert alert-danger'><strong>Heslo</strong> nesmí být prázdné.</div>
-              </div>
-              </div>";
-         } 
-        
-        if($password!=$password_check){
-        echo "<div class='row'>
-             <div class='col-md-6'> 
-             <div class='alert alert-danger'>Špatně zadané <strong>heslo</strong>.</div>
-              </div>
-              </div>"; 
-        }
-       
-      }
-      ?>
-       
-      <!-- End_Osobní údaje-->
-      <!-- Kontaktní údaje-->
       <br>
-      <div class="row">      
-        <div class="col-md-12">
-        <h5><i class="fa fa-envelope" aria-hidden="true"></i>&nbspKontaktní údaje</h5>
-        <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />   
-        </div>      
-      </div>
-
+        
       <div class="row">            
         <div class="col-md-6">           
-          <div class="input-group">
-          <span class="input-group-addon" id="email">E-mail</span>
-            <input type="email" class="form-control"  aria-describedby="email" id="email" name="email" value=<?=(isset($_POST['email'])?$_POST['email']:"")?>>        
+          <div class="input-group">          
+            <span class="input-group-addon" id="old_password">Staré heslo&nbsp</span>          
+            <input type="password" class="form-control" maxlength="20" id="old_password" name="old_password">        
           </div>      
         </div>
-        <br>      
-
-            
-        <div class="col-md-6">           
-          <div class="input-group">          
-            <span class="input-group-addon" id="number">Telefonní číslo</span>          
-            <input type="tel" class="form-control" maxlength="9" aria-describedby="number" id="number" name="number" value=<?=(isset($_POST['number'])?$_POST['number']:"")?>>        
-          </div>      
-        </div>      
       </div>
       
-      <div class="row">      
-        <div class="col-md-10">
-          <p><i class="fa fa-question-circle-o" aria-hidden="true"></i>&nbspKontaktní informace pro zájemce vašich inzerátů. Telefonní číslo uvádějte ve formátu "703123123".</p>
-        </div>      
-      </div>
+      <br>
       
-      <?php
-          if(isset($_POST['submit_register'])){
-          require_once "MySQL.php";
-          $email=$_POST['email'];
-          $email_check = $conn->query("SELECT email FROM pcb_uzivatel WHERE email ='".$email."'");
-          if(mysqli_num_rows($email_check) > 0){
-            echo "   <div class='row'>
-                     <div class='col-md-6'>
-                     <div class='alert alert-danger'>Tato <strong>emailová adresa</strong> již byla použita.</div>
-                     </div>
-                     </div>";
-          }
-          elseif(empty($email)){
-           echo "   <div class='row'>
-                     <div class='col-md-6'>
-                     <div class='alert alert-danger'>Zadejte <strong>emailovou adresu</strong>.</div>
-                     </div>"
-                     ; 
-          }
-          $number=$_POST['number'];
-          $number_check =$conn->query("SELECT number FROM pcb_uzivatel WHERE number ='".$number."'");
-         if(false==ereg("^[0-9]*$", $number)){
-           echo " <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Špatně zadané <strong>telefonní číslo</strong>.</div>
-                  </div>
-                  </div>";
-         }
-        
-         elseif(mysqli_num_rows($number_check) > 0){
-           echo "
-                  <div class='row'>
-                  <div class='col-md-6'>
-                  <div class='alert alert-danger'>Toto <strong>telefonní číslo</strong> již bylo použito.</div>
-                  </div>
-                  </div>";
-          }
-         
-       }
-        ?>
-      <!--End_Kontaktní údaje -->
-
       <div class="row">
-      <div class="col-md-6">
-      <input class="btn btn-dark" type="submit" id="submit_register" name="submit_register" value="Registrovat se"> 
+       <div class="col-md-6">
+        <input class="btn btn-dark" type="submit" id="submit_pass" name="submit_pass" value="Změnit heslo"> 
+        </div>
       </div>
-      </div>
+         
      </form>   
     </div>                
     <!-- End_Registrace -->                                                                                                                                                                         
@@ -258,53 +77,41 @@ include("horni_bar_logged.php");
 
 <?php 
   
-  if(isset($_POST['submit_register'])){
+  if(isset($_POST['submit_pass'])){
   
    require_once "MySQL.php";
    extract($_POST);
    
-     $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
-     $email_check = $conn->query("SELECT email FROM pcb_uzivatel WHERE email ='".$email."'");
-     $number_check =$conn->query("SELECT number FROM pcb_uzivatel WHERE number ='".$number."'");
+   $old_pass=output($conn,"pcb_uzivatel","password");
    
-      if(mysqli_num_rows($nickname_check) OR mysqli_num_rows($email_check) OR mysqli_num_rows($number_check) > 0){
-      
-       }  
-      elseif($password!=$password_check){
-      }
-      elseif(empty($nickname) || empty($first_name) || empty($last_name) || empty($password) || empty($email) || empty($number) ){
+   if($old_password==$old_pass){
+      if($new_password==$again_password){
+      input($conn,"pcb_uzivatel","password",$new_password);
+                ?>
+            <script>
+            window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/change_completed.php');
+            </script>
+          <?php
+                  
       }
       else{
-    // input into database
-    $query = 
-    "INSERT INTO pcb_uzivatel 
-    (nickname, first_name, last_name, password, email, number)
-
-     values
-
-    ('$nickname', '$first_name','$last_name','$password','$email','$number')";
-  
-  
-    $success = $conn->query($query);
-
-    if (!$success) {
-      die("Couldn't enter data: ".$mysqli->error);
-    }
-    else{
-    ?>
-    <script>
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/register_completed.php');
-    </script>
-    
-    <?php
-    }
-    
-    
+      echo " <div class='row'>
+             <div class='col-md-6'>
+             <div class='alert alert-danger'>Špatně zadané<strong>nové heslo</strong>.</div>
+             </div>
+             </div>";
+      }
+   }
+   else{
+              echo "
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Špatně zadané<strong>staré heslo</strong>.</div>
+                  </div>
+                  </div>";
+   }
   }
-  
-  mysqli_close($conn);
-  }
-  
+       
 ?>
 
 </body>
