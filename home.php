@@ -16,8 +16,8 @@ session_start();
   <body>       
 <?php
   include("horni_bar_logged.php");
-
-
+  
+  
 ?>                 
                                                                                                                                                                           
     <!-- Optional JavaScript -->                                                                         

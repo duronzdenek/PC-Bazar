@@ -63,18 +63,20 @@ include("horni_bar_checked.php");
                  
           $first_name=$_POST['first_name'];
           $last_name=$_POST['last_name'];
-   
-          if(empty($first_name)OR empty($last_name)){
+          $first_name=htmlspecialchars($first_name);
+          $last_name=htmlspecialchars($last_name);
+          $illegal = "#$%^&*()+=-[]';,./{}|:<>?~";
+          if(empty($first_name) OR empty($last_name) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$first_name) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$last_name)){
            echo "
                  <div class='row'>
                  <div class='col-md-6'> 
-                 <div class='alert alert-danger'><strong>Jméno a příjmení</strong> musí být vyplněno. </div>
+                 <div class='alert alert-danger'><strong>Jméno a příjmení</strong> bylo špatně zadáno. </div>
                  </div>
                  </div>";
-          }
+          
           
           }
-          
+      }
           ?>     
 
     <div class="row">
@@ -100,7 +102,7 @@ include("horni_bar_checked.php");
           $nickname=$_POST['nickname'];
    
           $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
-   
+          
           if(empty($nickname)){
            echo "
                  <div class='row'>
@@ -117,6 +119,14 @@ include("horni_bar_checked.php");
                  </div>
                  </div>";
            }
+           elseif(preg_match('/[^1-9a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$nickname)){
+           echo "
+                 <div class='row'>
+                 <div class='col-md-6'> 
+                 <div class='alert alert-danger'><strong>Přezdívka</strong> byla špatně zadána. Musí obsahovat jen písmena a číslice. </div>
+                 </div>
+                 </div>";
+          }
        }
        ?>
       
@@ -145,7 +155,7 @@ include("horni_bar_checked.php");
        
         $password=$_POST['password'];
         $password_check=$_POST['password_check'];
-        
+         
          if (empty($password)) 
          {
         echo "<div class='row'>
@@ -266,13 +276,13 @@ include("horni_bar_checked.php");
      $nickname_check = $conn->query("SELECT nickname FROM pcb_uzivatel WHERE nickname ='".$nickname."'");
      $email_check = $conn->query("SELECT email FROM pcb_uzivatel WHERE email ='".$email."'");
      $number_check =$conn->query("SELECT number FROM pcb_uzivatel WHERE number ='".$number."'");
-   
-      if(mysqli_num_rows($nickname_check) OR mysqli_num_rows($email_check) OR mysqli_num_rows($number_check) > 0){
+     
+      if(mysqli_num_rows($nickname_check)> 0 OR mysqli_num_rows($email_check)> 0 OR mysqli_num_rows($number_check) > 0){
       
        }  
       elseif($password!=$password_check){
       }
-      elseif(empty($nickname) || empty($first_name) || empty($last_name) || empty($password) || empty($email) || empty($number) ){
+      elseif(empty($nickname) || empty($first_name) || empty($last_name) || empty($password) || empty($email) || empty($number) || preg_match('^\w',$first_name) || preg_match('^\w',$last_name) || preg_match('^\w',$nickname)  || preg_match('/\\d/', $first_name) || preg_match('/\\d/', $last_name) ){
       }
       else{
     // input into database

@@ -51,14 +51,95 @@ require_once "MySQL_chyby.class.php";
         
     }
     
-    function output($conn,$table,$output){
-    if($table=="pcb_uzivatel"){ 
-        $id=$_SESSION['logged_id']; 
-        $sql="SELECT ".$output." FROM pcb_uzivatel WHERE id ='".$id."'";
+    function categoryChoose($x){
+      switch ($x) {
+      case 1:
+         return "Stolní Počítač";
+          break;
+      case 2:
+         return "Notebook";
+         break;
+      case 3:
+         return "Základní deska";
+         break;
+      case 4:
+         return "Jiné";
+         break;
+      case 5:
+         return "Procesor";
+         break;
+      case 6:
+         return "Operační Paměť";
+         break;
+      case 7:
+         return "Grafická karta";
+         break;
+      case 8:
+         return "Pevný disk";
+         break;
+      case 9:
+         return "Mechanika";
+         break;
+      case 10:
+         return "PC skříň";
+         break;
+      case 11:
+         return "Zdroj";
+         break;
+      case 12:
+         return "Jiná počítačová komponenta";
+         break;
+      case 13:
+         return "Monitor";
+         break;
+      case 14:
+         return "Myš";
+         break;
+      case 15:
+         return "Klávesnice";
+         break;
+      case 16:
+         return "Sluchátka";
+         break;
+      case 17:
+         return "Reproduktory";
+         break;
+      case 18:
+         return "Mikrofón";
+         break;
+      case 19:
+         return "Webkamera";
+         break;
+      case 20:
+         return "Externí disk";
+         break;
+      case 21:
+         return "Tiskárna";
+         break;
+      case 22:
+         return "Záložní zdroj";
+         break;
+      case 23:
+         return "Jiný počítačový doplněk";
+         break;
+      }
+    }
+    
+    function redirect($id){
+    $_SESSION['inzerat_id']=$id;
+    ?>
+    <script>
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/show_inzerat.php');
+    </script>
+    <?php 
+    
+    }
+    
+    function output($conn,$table,$output,$what){
+        $sql="SELECT ".$output." FROM ".$table." WHERE id ='".$what."'";
         $kvery = $conn->query($sql);
         $row = $kvery->fetch_array();
         return $row[$output];
-      }
     }
     
     
@@ -87,9 +168,17 @@ require_once "MySQL_chyby.class.php";
     }
     }
     
+    function plusOneSeen($conn,$id){
+      $seen=output($conn,"pcb_inzerat","seen",$id);
+      $seen=$seen+1;
+      $sql="UPDATE pcb_inzerat SET seen=".$seen." WHERE id=".$id;
+      $kvery = $conn->query($sql);
+    
+    }
+    
    
   
-  function __destruct() { 
+  function destruct() { 
     /* 6. Ukončení spojení */
     $conn->close();
   }	

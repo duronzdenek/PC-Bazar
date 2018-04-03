@@ -28,7 +28,7 @@ session_start();
            
       <div class ="row"> 
           <div class="col-md-12">
-            <h4 class="text-start">Pro přidání inzerátu se musíte přihlásit.</h4>
+            <h4 class="text-start">Prvně se musíte přihlásit.</h4>
           </div> 
       </div>
       

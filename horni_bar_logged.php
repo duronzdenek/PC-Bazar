@@ -11,7 +11,9 @@
         <br>
        </ul>
        <?php
-       
+       if(isset($_SESSION['logged_id'])==false){
+       header('Location: first_login.php');
+       }
        if(isset($_SESSION['logged_id'])){
           require_once("MySQL.php");
           $sql_f="SELECT first_name FROM  pcb_uzivatel WHERE id ='".$_SESSION['logged_id']."'";

@@ -26,7 +26,7 @@ if(!isset($_SESSION['logged_id'])){
 ?>                   
     <!-- New_inzerát -->       
     <div class="container">       
-      <form method="POST">
+      <form action="new_inzerat.php" method="POST" enctype="multipart/form-data">
        <div class="row">       
         <div class="col-md">   
           <h3 class="text-center">&nbspVložit inzerát</h3> 
@@ -37,7 +37,7 @@ if(!isset($_SESSION['logged_id'])){
       <!-- inzerát popis -->
        <div class="row">      
         <div class="col-md-12">
-        <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspInzerát</h5>  
+        <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspZákladní informace</h5>  
         </div>      
        </div>    
       <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" /> 
@@ -53,71 +53,93 @@ if(!isset($_SESSION['logged_id'])){
           </div>      
         </div>
      </div>
-      <div class="row">      
-        <div class="col-md-6">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspZde uveďte název produktu, který si přejete přidat.</p>
-        </div>      
-      </div>
-    <br>
-      <div class="row">
+     <?php
+     if(isset($_POST['submit_inzerat'])){
+      extract($_POST);
+      if(empty($name)){
+           echo " <br>
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Vyplňte prosím název.</div>
+                  </div>
+                  </div>";
+          }
+        }
+          
+          ?>
+     <br>
+     
+     <div class="row">
+        &nbsp&nbsp&nbsp
         <div class="col-xs-1">      
         <span class="input-group-addon" id="popis"for="popis">Popis</span>
         </div>
-        <div class="col-md-8">
-        <textarea class="form-control" rows="5" id="popis" maxlength="250" value=<?=(isset($_POST['popis'])?$_POST['popis']:"")?>></textarea>     
+        <div class="col-md-10">
+        <textarea class="form-control" rows="5" id="popis" name="popis" maxlength="1000" value=<?=(isset($_POST['popis'])?$_POST['popis']:"")?>></textarea>     
         </div>
       </div>
       <div class="row">      
-        <div class="col-md-6">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspKrátky popis produktu, který slouží pro upřesnění informací a kvality nabízeného produktu. Popis může mít 250 písmen.</p>
-        </div>      
-      </div>              
-        <div class="row">
-           <div class="col-md-4">
-             <div class=form-group>
-              <input type="file" class="form-control-file" id="img1" name="img1"> 
-             </div>
-           </div>
-           <div class="col-md-4">
-             <div class=form-group>
-              <input type="file" class="form-control-file" id="img2" name="img2"> 
-             </div>
-           </div>
-           <div class="col-md-4">
-             <div class=form-group>
-              <input type="file" class="form-control-file" id="img3" name="img3"> 
-             </div>
-           </div>
-
-    </div>
-        <?php 
-  
-  if(isset($_POST['submit_inzerat'])){
-   $img1=$_FILES['img1']['tmp_name'];
-   $img2=$_FILES['img2']['tmp_name'];
-   $img3=$_FILES['img3']['tmp_name'];
-    if(getimagesize($img1)==FALSE || getimagesize($img2)==FALSE || getimagesize($img3)==FALSE)
-    {
-      echo "
-      <div class='row'>
-        <div class='col-md-6'> 
-          <div class='alert alert-danger'>Zvolte prosím obrázek. </div>
-        </div>
-      </div>"; 
-    }
-  }
-          ?>
-       <div class="row">      
-        <div class="col-md-12">
-          <p><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspMůžete přidat 3 obrázky produktu, který nabízíte. Přidáním kvalitních fotek docílíte větší šance prodeje vašeho produktu. </p>
+        <div class="col-lr-5">
+          <p> &nbsp&nbsp&nbsp<i class="fa fa-question-circle" aria-hidden="true"></i>&nbspKrátky popis produktu, který slouží pro upřesnění informací a kvality nabízeného produktu. Popis může mít 1000 písmen.</p>
         </div>      
       </div>
-     <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />
-      <p><i class="fa fa-exclamation-circle"></i>&nbspPřidáním inzerátu souhlasíte s použitím vašich osobních údajů (jména, emailu a tel. čísla) ve výše uvedeném inzerátu. </p>
+           <?php
+     if(isset($_POST['submit_inzerat'])){
+      extract($_POST);
+      if(empty($popis)){
+           echo "
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Vyplňte prosím popis.</div>
+                  </div>
+                  </div>";
+          }
+        }
+          
+          ?>
+      
+      <br>
+      <div class="row">      
+        <div class="col-md-12">
+          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspKategorie</h5> 
+          <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />
+        </div>      
+      </div>
 
+    <div class="text-center">
+    <div class="btn-group btn-group btn-group-toggle" data-toggle="buttons">
+       <label class="btn btn-secondary active">
+           <input type="radio" name="category" value="1" id="option1" autocomplete="off"> Celý Počítač/Notebook
+       </label>
+       <label class="btn btn-secondary">
+          <input type="radio" name="category" value="2" id="option2" autocomplete="off"> Počítačová komponenta
+       </label>
+       <label class="btn btn-secondary">
+         <input type="radio" name="category" value="3" id="option3" autocomplete="off"> Počítačový doplněk
+       </label>
+       <label class="btn btn-secondary">
+         <input type="radio" name="category" value="4" id="option4" autocomplete="off"> Jiný počítačový produkt
+       </label>
+    </div>
+    </div>
+    <?php
+     if(isset($_POST['submit_inzerat'])){
+      extract($_POST);
+      if(empty($category)){
+           echo "
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Vyberte prosím kategorii.</div>
+                  </div>
+                  </div>";
+          }
+        }
+          
+          ?> 
+      <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" /> 
       <div class="row">
         <div class="col-md-6">
-          <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
+          <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Upřesnit kategorii"> 
         </div>
       </div>   
     </div>
@@ -130,29 +152,23 @@ if(!isset($_SESSION['logged_id'])){
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>                                       
 
 <?php 
-  
-  if(isset($_POST['x'])){
+  include_once("MySQL.php");
+  if(isset($_POST['submit_inzerat'])){
+    extract($_POST);
+    if(empty($name) OR empty($popis) OR empty($category)){
     
-  }
-  
-  if(isset($_POST['x'])){
-    if(getimagesize($_FILES['img1']['tmp_name'])!=FALSE){
-        $info = pathinfo($_FILES['img1']['name']);
-        $ext = $info['extension'];
-        require_once "MySQL.php";
-         $query = "INSERT INTO pcb_image values ('.$id_pcb_inzerat.')";
-        if($conn->query($query)===TRUE)
-          {
-          $name=$conn->insert_id;
-          $newname = $name."".$ext; 
-          $target = 'images/'.$newname;
-          move_uploaded_file( ($_FILES['img1']['tmp_name']), $target);
-          }
-        else
-          {
-          die("Couldn't enter data: ".$mysqli->error);
-          }  
-      
+    }
+    else{
+    $name=htmlspecialchars($name);
+    $popis=htmlspecialchars($popis); 
+    $_SESSION['name']=htmlspecialchars($name);      
+    $_SESSION['description']=htmlspecialchars($popis);
+    $_SESSION['category']=$category;
+    ?>
+      <script>
+      window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat1.php');
+      </script>
+    <?php 
     } 
   }
 ?>

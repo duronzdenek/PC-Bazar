@@ -38,11 +38,11 @@ session_start();
      
       <div class="row"> 
       <div class="col-md-6">
-          <h6>Jméno a příjmení:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","first_name")." ";echo output($conn,"pcb_uzivatel","last_name");?></p>
+          <h6>Jméno a příjmení:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","first_name",$_SESSION['logged_id'])." ";echo output($conn,"pcb_uzivatel","last_name",$_SESSION['logged_id']);?></p>
       </div>
       
       <div class="col-md-6">
-           <h6>Přezdívka:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","nickname");?></p>
+           <h6>Přezdívka:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","nickname",$_SESSION['logged_id']);?></p>
       </div>
       </div> 
        
@@ -56,11 +56,11 @@ session_start();
 
       <div class="row"> 
         <div class="col-md-6">
-          <h6>E-mail:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","email");?></p>
+          <h6>E-mail:</h6> <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","email",$_SESSION['logged_id']);?></p>
         </div>
       
        <div class="col-md-6">
-           <h6>Telefonní číslo:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","number");?></p>
+           <h6>Telefonní číslo:</h6>  <p><?require_once("MySQL.php");echo output($conn,"pcb_uzivatel","number",$_SESSION['logged_id']);?></p>
        </div>
       </div>
       
@@ -98,41 +98,88 @@ session_start();
       </div>      
       </div>
       
-     <div class="container">            
-      <table class="table table-striped">
-         <thead>
-                 <tr>
-                 <th>Firstname</th>
-                 <th>Lastname</th>
-                 <th>Email</th>
-                 </tr>
-        </thead>
-        <tbody>
-             <tr>
-               <td>John</td>
-               <td>Doe</td>
-               <td>john@example.com</td>
-             </tr>
-             <tr>
-               <td>Mary</td>
-               <td>Moe</td>
-               <td>mary@example.com</td>
-             </tr>
-             <tr>
-               <td>July</td>
-               <td>Dooley</td>
-               <td>july@example.com</td>
-            </tr>
-       </tbody>
-     </table>
-</div>   
-    </div>                
+     <?php
+     require_once("MySQL.php");
+     $result=$conn->query("SELECT name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."'");
+     if(mysqli_num_rows($result)!=NULL)
+     {
+     echo "<div class='container'>
+            <table class='table'>
+              ";
+     
+     echo "
+           <thead class='thead-dark'>
+              <tr>
+                <th scope='col'>Číslo inzerátu</th>
+                <th scope='col'>Název</th>
+                <th scope='col'>Počet zobrazení</th>
+              </tr>
+          </thead>
+          <tbody>
+          ";
+     $rows=mysqli_num_rows($result);
+     
+     while($rows!=0){ 
+        $result=$conn->query("SELECT id, name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."' AND id='".$rows."'");      
+        $row=$result->fetch_array();
+        echo "
+              <tr>
+                <th scope='row'>Inzerát číslo ".$rows."</th>
+                <td>".$row['name']."</td>
+                <td>".$row['seen']."</td> 
+              </tr>
+          ";
+     
+        $rows=$rows-1;
+        $ech[]=$row['id'];
+     }
+     echo '
+          </tbody>
+          </table>  
+          </div>';
+     }
+     ?>
+    
+    <br>
+          <form action="" method="POST">
+    <div class="row">      
+        <div class="col-md-4">
+          <p>Pro zobrazení inzerátu zadejte jeho číslo...</p>
+        </div>
+        <div class="col-md-3">       
+          <div class="input-group">         
+            <span class="input-group-addon" id="name">Číslo inzerátu:</span>                
+            <input type="text" class="form-control" maxlength="5" aria-describedby="cislo" id="cislo" name="cislo"  value=<?=(isset($_POST['cislo'])?$_POST['cislo']:"")?>>       
+          </div>      
+        </div>
+      <div class="col-md-3">
+        <input  class="btn btn-dark" type="submit" name="show_inzerat"  value="Zobrazit inzerát">
+      </div>
+    </div>
+    <br>
+    <br>
+    </form>        
+</div>
+
+<?php
+if(isset($_POST['show_inzerat'])){
+  $num=$_POST['cislo'];   
+  $e=count($ech);
+  if($e>=$num AND is_numeric($num)){
+    $e=$e-$num;
+    $x=$ech[$e];
+    redirect($x);
+  }
+
+}
+
+?>                
     <!-- End_Registrace -->                                                                                                                                                                         
     <!-- Optional JavaScript -->                                                                         
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->                       
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>                       
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>                       
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>                                       
+<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>                       
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js' integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh' crossorigin='anonymous'></script>                       
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js' integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ' crossorigin='anonymous'></script>                                       
 
 
 </body>

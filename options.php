@@ -60,12 +60,12 @@ include("horni_bar_logged.php");
           $first_name=$_POST['first_name'];
           $last_name=$_POST['last_name'];
           
-          if(preg_match('~[0-9]~', $first_name) OR preg_match('~[0-9]~', $last_name) == 1){
+          if(preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$first_name) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$last_name)){
             echo "
                   <br>
                  <div class='row'>
                  <div class='col-md-6'> 
-                 <div class='alert alert-danger'><strong>Jméno a příjmení</strong> nesmí obsahovat číslice. </div>
+                 <div class='alert alert-danger'><strong>Jméno nebo příjmení</strong> bylo špatně zadáno. </div>
                  </div>
                  </div>";
           }
@@ -171,7 +171,15 @@ include("horni_bar_logged.php");
           $nickname=$_POST['nickname'];
    
           $x=check($conn,"pcb_uzivatel","nickname",$nickname);
-          if(mysqli_num_rows($x) > 0) {
+          if(preg_match('/[^1-9a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$nickname)){
+          echo " 
+                 <div class='row'>
+                 <div class='col-md-6'> 
+                 <div class='alert alert-danger'><strong>Přezdívka</strong> byla špatně zadána. Musí obsahovat jen písmena a číslice. </div>
+                 </div>
+                 </div>";
+          }
+          elseif(mysqli_num_rows($x) > 0) {
           echo "
                  <div class='row'>
                  <div class='col-md-6'> 
@@ -179,6 +187,7 @@ include("horni_bar_logged.php");
                  </div>
                  </div>";
            }
+          
        
        }
   
@@ -220,7 +229,10 @@ include("horni_bar_logged.php");
       extract($_POST);
       if(output($conn,"pcb_uzivatel","password")==$password){
       if(mysqli_num_rows(check($conn,"pcb_uzivatel","nickname",$nickname)) OR mysqli_num_rows(check($conn,"pcb_uzivatel","email",$email)) OR mysqli_num_rows(check($conn,"pcb_uzivatel","number",$number)) == 1){
-       }  
+       }
+      elseif(preg_match('/[^1-9a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$nickname) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$first_name) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$last_name) ){
+      
+      }  
       elseif(false==ereg("^[0-9]*$", $number)){
       
       }
