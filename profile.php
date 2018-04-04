@@ -100,7 +100,7 @@ session_start();
       
      <?php
      require_once("MySQL.php");
-     $result=$conn->query("SELECT name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."'");
+     $result=$conn->query("SELECT id, name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."'");
      if(mysqli_num_rows($result)!=NULL)
      {
      echo "<div class='container'>
@@ -119,11 +119,8 @@ session_start();
           </thead>
           <tbody>
           ";
-     $rows=mysqli_num_rows($result);
      
-     while($rows!=0){ 
-        $result=$conn->query("SELECT id, name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."' AND id='".$rows."'");      
-        $row=$result->fetch_array();
+     while($row = mysqli_fetch_assoc($result)){ 
         $x="change".$row['id'];
         echo "
               <tr>
@@ -137,8 +134,6 @@ session_start();
       if(isset($_POST[$row['id']])){
         redirect($row['id']);
       }
-        $rows=$rows-1;
-        $ech[]=$row['id'];
      if(isset($_POST[$x])){
         redirectChange($row['id']); 
      }

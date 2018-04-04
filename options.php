@@ -227,7 +227,7 @@ include("horni_bar_logged.php");
   
    require_once "MySQL.php";
       extract($_POST);
-      if(output($conn,"pcb_uzivatel","password")==$password){
+      if(output($conn,"pcb_uzivatel","password",$_SESSION['logged_id'])==$password){
       if(mysqli_num_rows(check($conn,"pcb_uzivatel","nickname",$nickname)) OR mysqli_num_rows(check($conn,"pcb_uzivatel","email",$email)) OR mysqli_num_rows(check($conn,"pcb_uzivatel","number",$number)) == 1){
        }
       elseif(preg_match('/[^1-9a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$nickname) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$first_name) OR preg_match('/[^a-zA-ZáéíóúýčďěňřšťžůÁÉÍÓÚÝČĎĚŇŘŠŤŽŮ]+/',$last_name) ){
