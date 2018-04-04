@@ -94,18 +94,17 @@
       <div class="container">                                     
         <div class="row" style="background:#aaa">                            
           <div class="col-md-6">      <h1><i class="fa fa-laptop" aria-hidden="true"></i>&nbspPočítačový bazar</h1>      <h5>&nbsp &nbsp Prodej a nákup všeho ohledně počítačů...</h5>                            
-          </div>                            
-          <div class="col-md-4">                                
-            <br>                                 
-            <br>                         
-            <input class="form-control mr-sm-2" type="text" placeholder="počítač, notebook, procesor...">                           
-          </div>                     
+          </div>                                               
           <div class="col-md-2">                       
             <br>                                 
             <br>                         
-            <button type="button" class="btn btn-dark" type=submit><i class="fa fa-search" aria-hidden="true"></i>&nbspHledej                          
-            </button>                            
+            <a class="btn btn-dark" href="search.php" role="button" ><i class="fa fa-search" aria-hidden="true"></i>&nbspHledat podle kategorie                          
+            </a>                            
           </div>                        
-        </div>             
+        </div>            
       </div>         
-    </div> 
+    </div>
+    
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>                       
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>                       
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 

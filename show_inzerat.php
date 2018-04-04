@@ -62,12 +62,18 @@ session_start();
       <div class="row"> 
         <div class="col-md-6">
           <h5>Popis: </h5> <p><?require_once("MySQL.php");echo output($conn,"pcb_inzerat","description",$_SESSION['inzerat_id'])." ";?></p>
-        </div>
+      </div>
 
         <div class="col-md-6">
-          <h5>Obrázek: </h5><img src="<?require_once("MySQL.php");echo output($conn,"pcb_inzerat","path",$_SESSION['inzerat_id'])." ";?>" alt="<?$_SESSION['inzerat_id']?>"class="img-fluid"">
+          <h5>Obrázek: </h5><img src="<?require_once("MySQL.php");echo output($conn,"pcb_inzerat","path",$_SESSION['inzerat_id'])." ";?>" alt="<?$_SESSION['inzerat_id']?>"class="img-fluid">
         </div>
       </div>
+      <div class="row"> 
+        <div class="col-md-3">
+          <h5>Cena: </h5> <p><?require_once("MySQL.php");echo output($conn,"pcb_inzerat","price",$_SESSION['inzerat_id'])." ";?>Kč</p>
+        </div>
+      </div>
+       
             <br> 
       <div class="row">      
         <div class="col-md-12">

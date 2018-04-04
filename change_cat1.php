@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<!DOCTYPE>
+<!doctype>
 <html lang="en">                             
   <head>                                                 
     <title>PC Bazar                                            
@@ -15,38 +15,29 @@ session_start();
   </head>
 <body>
 <?php
- include("horni_bar_logged.php");
-if(!isset($_SESSION['logged_id'])){
-   ?> 
-    <script>                                                                                                         
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/first_login.php');
-    </script>
-    <?php
+include("horni_bar_logged.php");
+include_once("MySQL.php");
+$id=output($conn,"pcb_inzerat","id_pcb_uzivatel",$_SESSION['inzerat_id_change']);
+
+if($_SESSION['inzerat_id_change']==$id){
+          ?>
+            <script>
+            window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/home.php');
+            </script>
+          <?php
 }
-if(!isset($_SESSION['category']) OR !isset($_SESSION['name']) OR !isset($_SESSION['description']) OR !isset($_SESSION['category'])){
-   ?> 
-    <script>                                                                                                         
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat.php');
-    </script>
-    <?php
-}
-?>                   
-    <!-- New_inzerát -->       
+
+?>                  
+    <!-- Nastavení -->       
     <div class="container">       
-      <form action="" method="POST" enctype="multipart/form-data">
-       <div class="row">       
-        <div class="col-md">   
-          <h3 class="text-center">&nbspVložit inzerát</h3> 
-         </div>                 
-       </div>           
-      
-      <br>      
-      <div class="row">      
+      <form method="POST" enctype="multipart/form-data">
+  
+    <div class="row">      
         <div class="col-md-12">
-          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspUpřesnění Kategorie - 2. krok</h5> 
+          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspUpřesnění Kategorie</h5> 
         </div>      
       </div>
-    
+      <br>
     <?php 
     if($_SESSION['category']==1){
     echo"
@@ -167,17 +158,18 @@ if(!isset($_SESSION['category']) OR !isset($_SESSION['name']) OR !isset($_SESSIO
       
      <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />
       <div class="row">
-        <div class="col-md-3">
-          <input class="btn btn-dark" type="submit" id="submit_back" name="submit_back" value="Zpět na výběr kategorie"> 
-        </div>
         <div class="col-md-2">
-          <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přejít na přidání fotky"> 
+          <input class="btn btn-dark" type="submit" id="submit_change" name="submit_change" value="Změnit kategorii"> 
         </div>
+         <div class="col-md-2">
+         <input class="btn btn-dark" type="submit" id="back" name="back" value="Zpět na profil"> 
+        </div>
+        
       </div>
-         
-    </div>
-    </form>                
-    <!-- End_Registrace -->                                                                                                                                                                         
+      
+      
+     </form>   
+    </div>                                                                                                                                                                                        
     <!-- Optional JavaScript -->                                                                         
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->                       
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>                       
@@ -185,20 +177,23 @@ if(!isset($_SESSION['category']) OR !isset($_SESSION['name']) OR !isset($_SESSIO
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>                                       
 
 <?php 
-  if(isset($_POST['submit_inzerat'])){
-    ?>
-    <script>
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat2.php');
-    </script>
-    <?php 
-    } 
+       
+  if(isset($_POST['submit_change'])){
+      require_once "MySQL.php";
+      extract($_POST);
+      if(isset($category)){
+      $red=$_SESSION['inzerat_id_change'];
+      input($conn,"pcb_inzerat","category",$category,$red);
+      unset($_SESSION['inzerat_id_change']);
+      redirect($red);
+    }
+        
+  }
   
-  if(isset($_POST['submit_back'])){
-       ?>
-    <script>
-    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat.php');
-    </script>
-    <?php
+  if(isset($_POST['back'])){
+  require_once("MySQL.php");
+  unset($_SESSION['inzerat_id_change']);
+  goProfile();
   }
 ?>
 

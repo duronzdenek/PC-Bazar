@@ -37,7 +37,7 @@ if(!isset($_SESSION['logged_id'])){
       <!-- inzerát popis -->
        <div class="row">      
         <div class="col-md-12">
-        <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspZákladní informace</h5>  
+        <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspZákladní informace - 1.krok</h5>  
         </div>      
        </div>    
       <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" /> 
@@ -48,7 +48,7 @@ if(!isset($_SESSION['logged_id'])){
           <div class="input-group">         
           
             <span class="input-group-addon" id="name">Název</span>                
-            <input type="text" class="form-control" maxlength="30" aria-describedby="name" id="name" name="name"  value=<?=(isset($_POST['name'])?$_POST['name']:"")?>>        
+            <input type="text" class="form-control" maxlength="30" aria-describedby="name" id="name" name="name"  value=<?if(isset($_SESSION['name'])){ echo $_SESSION['name'];}elseif(isset($_POST['name'])){echo $_POST['name'];}?>>        
 
           </div>      
         </div>
@@ -68,6 +68,45 @@ if(!isset($_SESSION['logged_id'])){
           
           ?>
      <br>
+           <div class="row">      
+        
+        <div class="col-md-3">       
+          <div class="input-group">         
+          
+            <span class="input-group-addon" id="price">Cena</span>                
+            <input type="text" class="form-control" maxlength="30" aria-describedby="price" id="price" name="price" value=<?if(isset($_SESSION['price'])){ echo $_SESSION['price'];}elseif(isset($_POST['price'])){echo $_POST['price'];}?>>        
+            
+          </div>      
+        </div>
+     </div>
+           <div class="row">      
+        <div class="col-lr-5">
+          <p> &nbsp&nbsp&nbsp<i class="fa fa-question-circle" aria-hidden="true"></i>&nbspCenu uvádějte v Kč.</p>
+        </div>      
+      </div>
+                 <?php
+     if(isset($_POST['submit_inzerat'])){
+      extract($_POST);
+      if(empty($price)){
+           echo "
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Vyplňte prosím cenu.</div>
+                  </div>
+                  </div>";
+          }
+        elseif(is_numeric($price)==false){
+           echo "
+                  <div class='row'>
+                  <div class='col-md-6'>
+                  <div class='alert alert-danger'>Uvádějte jen číslo.</div>
+                  </div>
+                  </div>";
+          }
+        }
+        
+          
+          ?>
      
      <div class="row">
         &nbsp&nbsp&nbsp
@@ -75,7 +114,7 @@ if(!isset($_SESSION['logged_id'])){
         <span class="input-group-addon" id="popis"for="popis">Popis</span>
         </div>
         <div class="col-md-10">
-        <textarea class="form-control" rows="5" id="popis" name="popis" maxlength="1000" value=<?=(isset($_POST['popis'])?$_POST['popis']:"")?>></textarea>     
+        <textarea class="form-control" rows="5" id="popis" name="popis" maxlength="1000"><?if(isset($_SESSION['description'])){ echo $_SESSION['description'];}elseif(isset($_POST['popis'])){echo $_POST['popis'];}?></textarea>     
         </div>
       </div>
       <div class="row">      
@@ -108,7 +147,7 @@ if(!isset($_SESSION['logged_id'])){
 
     <div class="text-center">
     <div class="btn-group btn-group btn-group-toggle" data-toggle="buttons">
-       <label class="btn btn-secondary active">
+       <label class="btn btn-secondary">
            <input type="radio" name="category" value="1" id="option1" autocomplete="off"> Celý Počítač/Notebook
        </label>
        <label class="btn btn-secondary">
@@ -155,12 +194,13 @@ if(!isset($_SESSION['logged_id'])){
   include_once("MySQL.php");
   if(isset($_POST['submit_inzerat'])){
     extract($_POST);
-    if(empty($name) OR empty($popis) OR empty($category)){
+    if(empty($name) OR empty($popis) OR empty($category) OR is_numeric($price)==false OR empty($price)){
     
     }
     else{
     $name=htmlspecialchars($name);
-    $popis=htmlspecialchars($popis); 
+    $popis=htmlspecialchars($popis);
+    $_SESSION['price']=$price; 
     $_SESSION['name']=htmlspecialchars($name);      
     $_SESSION['description']=htmlspecialchars($popis);
     $_SESSION['category']=$category;

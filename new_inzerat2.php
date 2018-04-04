@@ -23,13 +23,28 @@ if(!isset($_SESSION['logged_id'])){
     </script>
     <?php
 }
+elseif(!isset($_SESSION['category']) OR !isset($_SESSION['name']) OR !isset($_SESSION['description'])){
+   ?> 
+    <script>                                                                                                         
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat.php');
+    </script>
+    <?php
+}
 ?>                   
     <!-- New_inzerát -->       
     <div class="container">       
       <form action="" method="POST" enctype="multipart/form-data">
+       <div class="row">       
+        <div class="col-md">   
+          <h3 class="text-center">&nbspVložit inzerát</h3> 
+         </div>                 
+       </div>           
+      
+      <br> 
+      
        <div class="row">             
         <div class="col-md-12">
-          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspPřidání fotografie</h5> 
+          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspPřidání fotografie - 3. krok</h5> 
         </div>      
      </div>           
       
@@ -67,9 +82,14 @@ if(!isset($_SESSION['logged_id'])){
       <p><i class="fa fa-exclamation-circle"></i>&nbspPřidáním inzerátu souhlasíte s použitím vašich osobních údajů (jména, emailu a tel. čísla) ve výše uvedeném inzerátu. </p>
 
       <div class="row">
+        <div class="col-md-4">
+          <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_back" value="Zpět na upřesnění kategorie"> 
+        </div>
+        
         <div class="col-md-6">
           <input class="btn btn-dark" type="submit" id="submit_inzerat" name="submit_inzerat" value="Přidat inzerát"> 
         </div>
+
       </div>   
     </div>
     </form>                
@@ -80,15 +100,24 @@ if(!isset($_SESSION['logged_id'])){
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>                       
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>                                       
 
-<?php 
-  include_once("MySQL.php");
+<?php
+  if(isset($_POST['submit_back'])){
+       ?>
+    <script>
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/new_inzerat1.php');
+    </script>
+    <?php
+  }
+   
   if(isset($_POST['submit_inzerat'])){
+    include_once("MySQL.php");
     if(getimagesize($_FILES['img1']['tmp_name'])){
-      extract($_POST);
+    extract($_POST);
     $name=$_SESSION['name'];      
     $popis=$_SESSION['description'];
     $category=$_SESSION['category'];
-    $sql="INSERT INTO pcb_inzerat (name, description, id_pcb_uzivatel, seen, category) VALUES ('".$name."','".$popis."','".$_SESSION['logged_id']."','0', '".$category."')";
+    $price=$_SESSION['price'];
+    $sql="INSERT INTO pcb_inzerat (name, description, id_pcb_uzivatel, seen, category, price) VALUES ('".$name."','".$popis."','".$_SESSION['logged_id']."','0', '".$category."','".$price."')";
     $kvery = $conn->query($sql);
     $sql="SELECT id FROM pcb_inzerat ORDER BY id DESC LIMIT 1";
     $kvery = $conn->query($sql);   
@@ -104,6 +133,7 @@ if(!isset($_SESSION['logged_id'])){
     unset($_SESSION['name']);
     unset($_SESSION['description']);
     unset($_SESSION['category']);
+    unset($_SESSION['price']);
     ?>
     <script>
     window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/show_inzerat.php');

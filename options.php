@@ -238,20 +238,20 @@ include("horni_bar_logged.php");
       }
       else{
           if(!empty($nickname)){
-             input($conn,"pcb_uzivatel","nickname",$nickname);
+             input($conn,"pcb_uzivatel","nickname",$nickname,$_SESSION['logged_id']);
              echo "input nickname hotov";
          }
          if(!empty($first_name)){
-             input($conn,"pcb_uzivatel","first_name",$first_name);    
+             input($conn,"pcb_uzivatel","first_name",$first_name,$_SESSION['logged_id']);    
          }
          if(!empty($last_name)){
-             input($conn,"pcb_uzivatel","last_name",$last_name);   
+             input($conn,"pcb_uzivatel","last_name",$last_name,$_SESSION['logged_id']);   
          } 
          if (!empty($email)){
-             input($conn,"pcb_uzivatel","email",$email);  
+             input($conn,"pcb_uzivatel","email",$email,$_SESSION['logged_id']);  
          }
          if(!empty($number)){
-             input($conn,"pcb_uzivatel","number",$number);  
+             input($conn,"pcb_uzivatel","number",$number,$_SESSION['logged_id']);  
           }
           ?>
             <script>

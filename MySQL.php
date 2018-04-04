@@ -135,6 +135,15 @@ require_once "MySQL_chyby.class.php";
     
     }
     
+    function redirectChange($id){
+    $_SESSION['inzerat_id_change']=$id;
+    ?>
+    <script>
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/change_inz.php');
+    </script>
+    <?php 
+    }
+    
     function output($conn,$table,$output,$what){
         $sql="SELECT ".$output." FROM ".$table." WHERE id ='".$what."'";
         $kvery = $conn->query($sql);
@@ -143,10 +152,17 @@ require_once "MySQL_chyby.class.php";
     }
     
     
-    function input($conn,$table,$col,$value){
-        $id=$_SESSION['logged_id']; 
+    function input($conn,$table,$col,$value,$id){
         $sql="UPDATE ".$table." SET ".$col."='".$value."' WHERE id ='".$id."'";
         return $conn->query($sql);
+    }
+    
+    function goProfile(){
+        ?>
+    <script>
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/profile.php');
+    </script>
+    <?php
     }
     
     function check($conn,$table,$col,$value){

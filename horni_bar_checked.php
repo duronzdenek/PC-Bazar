@@ -54,23 +54,18 @@ if(isset($_SESSION['logged_id'])){
        </ul>                                                                                         
     </nav>
                                                      
-    <div class="jumbotron jumbotron-fluid" style="background:#aaa">                  
+        <div class="jumbotron jumbotron-fluid" style="background:#aaa">                  
       <div class="container">                                     
         <div class="row" style="background:#aaa">                            
           <div class="col-md-6">      <h1><i class="fa fa-laptop" aria-hidden="true"></i>&nbspPočítačový bazar</h1>      <h5>&nbsp &nbsp Prodej a nákup všeho ohledně počítačů...</h5>                            
-          </div>                            
-          <div class="col-md-4">                                
-            <br>                                 
-            <br>                         
-            <input class="form-control mr-sm-2" type="text" placeholder="počítač, notebook, procesor...">                           
-          </div>                     
+          </div>                                               
           <div class="col-md-2">                       
             <br>                                 
             <br>                         
-            <button type="button" class="btn btn-dark" type=submit><i class="fa fa-search" aria-hidden="true"></i>&nbspHledej                          
-            </button>                            
+            <a class="btn btn-dark" href="search.php" role="button" ><i class="fa fa-search" aria-hidden="true"></i>&nbspHledat podle kategorie                          
+            </a>                            
           </div>                        
-        </div>             
+        </div>            
       </div>         
     </div>      
     <!-- End_Horní Bar -->

@@ -22,7 +22,7 @@ session_start();
       <form action="options.php" method="POST">
        <div class="row">       
         <div class="col-md">   
-          <h3 class="text-center"><i class="fa fa-user"></i>Profil uživatele</h3> 
+          <h3 class="text-center"><i class="fa fa-user"></i>&nbspProfil uživatele</h3> 
          </div>                 
        </div>           
       
@@ -104,15 +104,17 @@ session_start();
      if(mysqli_num_rows($result)!=NULL)
      {
      echo "<div class='container'>
+            <form action='' method='POST'>
             <table class='table'>
               ";
      
      echo "
            <thead class='thead-dark'>
               <tr>
-                <th scope='col'>Číslo inzerátu</th>
-                <th scope='col'>Název</th>
+                <th scope='col' colspan='4'>Název</th>
                 <th scope='col'>Počet zobrazení</th>
+                <th scpoe='col'>Zobrazit inzerát</th>
+                <th scpoe='col'>Upravit inzerát</th> 
               </tr>
           </thead>
           <tbody>
@@ -122,43 +124,34 @@ session_start();
      while($rows!=0){ 
         $result=$conn->query("SELECT id, name , seen FROM pcb_inzerat WHERE id_pcb_uzivatel ='".$_SESSION['logged_id']."' AND id='".$rows."'");      
         $row=$result->fetch_array();
+        $x="change".$row['id'];
         echo "
               <tr>
-                <th scope='row'>Inzerát číslo ".$rows."</th>
-                <td>".$row['name']."</td>
+                <td colspan='4'>".$row['name']."</td>
                 <td>".$row['seen']."</td> 
+                <td><input class='btn btn-dark' type='submit' id='".$row['id']."' name='".$row['id']."' value='Přejít na inzerát'></td>
+                <td><input class='btn btn-dark' type='submit' id='change".$row['id']."' name='".$x."' value='Upravit inzerát'></td>
               </tr>
           ";
      
+      if(isset($_POST[$row['id']])){
+        redirect($row['id']);
+      }
         $rows=$rows-1;
         $ech[]=$row['id'];
+     if(isset($_POST[$x])){
+        redirectChange($row['id']); 
+     }
      }
      echo '
           </tbody>
-          </table>  
+          </table>
+          </form>  
           </div>';
      }
      ?>
     
-    <br>
-          <form action="" method="POST">
-    <div class="row">      
-        <div class="col-md-4">
-          <p>Pro zobrazení inzerátu zadejte jeho číslo...</p>
-        </div>
-        <div class="col-md-3">       
-          <div class="input-group">         
-            <span class="input-group-addon" id="name">Číslo inzerátu:</span>                
-            <input type="text" class="form-control" maxlength="5" aria-describedby="cislo" id="cislo" name="cislo"  value=<?=(isset($_POST['cislo'])?$_POST['cislo']:"")?>>       
-          </div>      
-        </div>
-      <div class="col-md-3">
-        <input  class="btn btn-dark" type="submit" name="show_inzerat"  value="Zobrazit inzerát">
-      </div>
-    </div>
-    <br>
-    <br>
-    </form>        
+    <br>       
 </div>
 
 <?php

@@ -20,35 +20,36 @@ if(isset($_SESSION['logged_id'])){
 }
 else{
  include("horni_bar_checked.php");
-}  
+} 
+if(!isset($_SESSION['cat'])){
+      ?>
+    <script>
+    window.location.replace('http://student.sspbrno.cz/~duron.zdenek/pcbazar/home.php');
+    </script>
+    <?php  
+} 
 ?>                     
        <div class="container">
        
        <div class="row">      
         <div class="col-md-12">
-        <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspPoslední přidané inzeráty</h5>
-        <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />   
-      </div>      
+          <h5><i class="fa fa-file-text" aria-hidden="true"></i>&nbspNalezené inzeráty</h5>
+          <hr style="width: 100%; color: black; height: 1px; background-color:#aaa;" />   
+        </div>      
       </div>
       
      <?php
      require_once("MySQL.php");
-     $result=$conn->query("SELECT id FROM pcb_inzerat ORDER BY id DESC");
+     $result=$conn->query("SELECT id FROM pcb_inzerat WHERE category='".$_SESSION['cat']."'");
      if(mysqli_num_rows($result)!=NULL)
      {
+     
      echo "<div class='container'>
             <form action='' method='POST'>
             <table class='table'>
               ";
-     
-    
-     $rows=$result->fetch_array();
-     $rows=$rows['id'];
-     
-     while($rows!=0){ 
-    
-        $result=$conn->query("SELECT id, name , seen, description, path, category, price FROM pcb_inzerat WHERE id='".$rows."'");      
-        $row=$result->fetch_array();
+        $result=$conn->query("SELECT id, name , seen, description, path, category FROM pcb_inzerat WHERE category='".$_SESSION['cat']."'");      
+        while ($row=mysqli_fetch_assoc($result)){;
         echo "                
                
                <thead class='thead-dark'>
@@ -78,23 +79,46 @@ else{
                 <td>".categoryChoose($row['category'])."</td>
               </tr>
             <tr>  
-            <td><input class='btn btn-dark' type='submit' id='".$row['id']."' name='".$row['id']."' value='Přejít na inzerát'><td>
-            <th colspan='10'>Cena: ".$row['price']." Kč</th>                             
+            <td><input class='btn btn-dark' type='submit' id='".$row['id']."' name='".$row['id']."' value='Přejít na inzerát'><td>                             
             </tr>
           ";
      
       if(isset($_POST[$row['id']])){
         redirect($row['id']);
       }
-        $rows=$rows-1;
-        $ech[]=$row['id'];
      }
-     echo '
+     echo "
           </tbody>
           </table>
           </form>  
-          </div>';
+          </div>
+          <br>
+        <hr style='width: 100%; color: black; height: 1px; background-color:#aaa;' />           
+            <div class='row'> 
+              <div class='col-md-12'>
+                <h5>&nbsp&nbsp&nbsp&nbsp&nbspVíce jich tu není...</h5>
+              </div>
+            </div>";
      }
+     else{
+       echo"<br> 
+            <div class='row'> 
+              <div class='col-md-12'>
+                <h5>Nenašel jsem žádný inzerát...</h5>
+              </div>
+            </div>
+            
+          <div class='row'>
+          <div class='col-md-2'>                       
+            <br>                                 
+                        
+            <a class='btn btn-dark' href='search.php' role='button' ><i class='fa fa-search' aria-hidden='true'></i>&nbspHledat znovu                          
+            </a>                            
+          </div>
+         </div> 
+          ";
+     }
+     unset($_SESSION['cat']);
      ?>
     
     <br>       
