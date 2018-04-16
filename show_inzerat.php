@@ -56,7 +56,7 @@ session_start();
           <h5>Kategorie: </h5> <p><?require_once("MySQL.php");$x=output($conn,"pcb_inzerat","category",$_SESSION['inzerat_id']);echo categoryChoose($x)." ";?></p>
          </div>
          <div class="col-md-3">
-          <h5>Viděné: </h5> <p><?require_once("MySQL.php");echo output($conn,"pcb_inzerat","seen",$_SESSION['inzerat_id']);?></p>
+          <h5>Zobrazeno: </h5> <p><?require_once("MySQL.php");echo output($conn,"pcb_inzerat","seen",$_SESSION['inzerat_id']);?></p>
          </div>
       </div>
       <div class="row"> 

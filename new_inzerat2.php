@@ -117,7 +117,8 @@ elseif(!isset($_SESSION['category']) OR !isset($_SESSION['name']) OR !isset($_SE
     $popis=$_SESSION['description'];
     $category=$_SESSION['category'];
     $price=$_SESSION['price'];
-    $sql="INSERT INTO pcb_inzerat (name, description, id_pcb_uzivatel, seen, category, price) VALUES ('".$name."','".$popis."','".$_SESSION['logged_id']."','0', '".$category."','".$price."')";
+    $sql="INSERT INTO pcb_inzerat (name, description, id_pcb_uzivatel, seen, category, price)
+    VALUES ('".$name."','".$popis."','".$_SESSION['logged_id']."','0', '".$category."','".$price."')";
     $kvery = $conn->query($sql);
     $sql="SELECT id FROM pcb_inzerat ORDER BY id DESC LIMIT 1";
     $kvery = $conn->query($sql);   

@@ -56,17 +56,7 @@ if(!isset($_SESSION['cat'])){
               <tr>
                 <th scope='col'>".$row['name']."</th> 
                 <th scope='col'>Popis</th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
-                <th scope='col'></th>
+                <th colspan='11' scope='col'></th>
                 <th scope='col'>Počet zobrazení</th>
                 <th scope='col'>Kategorie </th> 
               </tr>

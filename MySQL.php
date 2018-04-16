@@ -181,8 +181,8 @@ require_once "MySQL_chyby.class.php";
         }
         else{
             echo "0";
-    }
-    }
+        }
+   }
     
     function plusOneSeen($conn,$id){
       $seen=output($conn,"pcb_inzerat","seen",$id);
